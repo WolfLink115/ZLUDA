@@ -113,12 +113,14 @@ jobs:
       - name: Upload (release)
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: rel.${{ github.sha }}
-          files: target/release/zluda.zip
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: target/release/zluda.zip
+          asset_name: ZLUDA-windows-rocm5-amd64.zip
+          asset_content_type: application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  build_win:
+  build_win_6:
     name: Build and publish (Windows ROCm 6.x)
     runs-on: windows-2019
     needs: release
@@ -161,5 +163,5 @@ jobs:
         with:
           upload_url: ${{ needs.release.outputs.upload_url }}
           asset_path: target/release/zluda.zip
-          asset_name: ZLUDA-windows-amd64.zip
+          asset_name: ZLUDA-windows-rocm6-amd64.zip
           asset_content_type: application/zip
